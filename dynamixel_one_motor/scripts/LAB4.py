@@ -20,16 +20,9 @@ positions_deg = [
     [80, -35, 55, -45, 0]
 ]
 
-# Valores análogos de las posiciones home y los casos obtenidos desde dynamixel_wizard
-#positions_analog = [
-#    [514, 510, 818, 512, 512],
-#    [444, 575, 751, 580, 512],
-#    [614, 410, 922, 409, 512],
-#    [205, 560, 630, 570, 512],
-#    [205, 660, 629, 666, 546]
-#]
 positions_analog = [[514,510,818,512,512],[597,597,888,444,512],[393,630,716,616,512],[802,445,1000,599,512],[786,395,1000,360,546]
 ]
+
 # Función para enviar comandos a los motores Dynamixel
 def send_joint_command(command, id_num, addr_name, value, delay):
     rospy.wait_for_service('dynamixel_workbench/dynamixel_command')
@@ -57,7 +50,7 @@ def print_positions(real, theoretical):
 
 # Función para mover gradualmente las articulaciones hacia una posición objetivo
 def move_partial(joint_index, goal_position, current_position):
-    N = 6
+    N = 5
     delta = (goal_position - current_position) / N
     for i in range(N):
         send_joint_command('', joint_index + 1, 'Goal_Position', int(current_position + delta * (i + 1)), 0.5)
